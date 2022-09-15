@@ -19,7 +19,6 @@ const signInSchema = joi.object({
 
 async function signUp(req, res) {
     const { username, email, password } = req.body;
-    console.log('controller')
 
     const hashPassword = bcrypt.hashSync(password, 10);
 
