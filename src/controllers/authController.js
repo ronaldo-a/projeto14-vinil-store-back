@@ -118,13 +118,13 @@ async function verifySession (req, res) {
 
     try {
         // verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({token})
+        const session = await db.collection('sessions').findOne({token})
 
         if(!user){
             return res.status(404).send('Usuário não encontrado');
         }
 
-        res.status(200).send(user.username);
+        res.status(200).send(session);
     } catch (error) {
         console.error(error);
         res.sendStatus(500);
