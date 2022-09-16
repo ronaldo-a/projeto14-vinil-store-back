@@ -195,7 +195,7 @@ try {
     console.error(error.response)
 }
 
-const db = mongoClient.db('vinil-store-3');
+const db = mongoClient.db('vinil-store-01');
 
 // try {
 //     for (let k = 0; k < array.length; k++) {
