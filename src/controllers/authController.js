@@ -52,6 +52,7 @@ async function signUp(req, res) {
 
 async function signIn (req, res) {
     const { email, password } = req.body;
+    console.log('signIn')
 
     // validação com joi
     const validation = signInSchema.validate(req.body)
@@ -95,7 +96,7 @@ async function signIn (req, res) {
 
 async function signOut (req, res){
     const token = req.headers.authorization?.replace('Bearer ', '')
-
+    console.log('delete')
     try {
         // verificação pela session se o cara ta online ainda
         const user = await db.collection('sessions').findOne({token})

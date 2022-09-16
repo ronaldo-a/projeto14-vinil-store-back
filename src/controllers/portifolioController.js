@@ -45,8 +45,30 @@ async function getCart(req, res) {
 }
 
 // insert
-
 async function insertCart(req, res) {
+    const token = req.headers.aythorization?.replace('Bearer ', '');
+
+
+    try {
+        // verificação pela session se o cara ta online ainda
+        // const user = await db.collection('sessions').findOne({token})
+
+        // if(!user){
+        //     return res.status(404).send('O usuário não está mais logado');
+        // }
+        // ----------------------------------------------------------------
+        
+
+
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500)
+    }
+
+
+}
+
+async function insertHeaderCart(req, res) {
     const token = req.headers.aythorization?.replace('Bearer ', '');
 
 
@@ -73,4 +95,5 @@ export {
     getPortifolio,
     getCart,
     insertCart,
+    insertHeaderCart,
 }
