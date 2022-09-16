@@ -94,8 +94,7 @@ async function signIn (req, res) {
 }
 
 async function signOut (req, res){
-    const token = req.headers.authorization?.replace('Bearer ', '');
-
+    const token = req.headers.authorization?.replace('Bearer ', '')
     try {
         // verificação pela session se o cara ta online ainda
         const user = await db.collection('sessions').findOne({token})
