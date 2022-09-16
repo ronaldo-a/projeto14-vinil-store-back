@@ -6,13 +6,7 @@ async function getPortifolio(req, res) {
     const token = req.headers.authorization?.replace('Bearer ', '')
     const { style } = req.query
 
-    // verificação pela session se o cara ta online ainda
-    // const user = await db.collection('sessions').findOne({token})
 
-    // if(!user){
-    //     return res.status(404).send('O usuário não está mais logado');
-    // }
-    // ----------------------------------------------------------------
 
     // lembrar de maiúsculo e minúsculo
     // Verificação do query
@@ -21,7 +15,6 @@ async function getPortifolio(req, res) {
 
         try {
             const portifolio = await db.collection('portifolio').find({ style: style }).toArray()
-            console.log(portifolio)
             return res.status(200).send(portifolio)
 
         } catch (error) {
@@ -32,6 +25,13 @@ async function getPortifolio(req, res) {
     // ----------------------------------------------------------------
 
     try {
+        // MIDDLEWARE verificação pela session se o cara ta online ainda
+        const user = await db.collection('sessions').findOne({ token })
+        if (!user) {
+            return res.status(404).send('O usuário não está mais logado');
+        }
+        // ----------------------------------------------------------------
+
         const portifolio = await db.collection('portifolio').find().toArray();
 
         res.status(200).send(portifolio)
@@ -46,16 +46,16 @@ async function getCart(req, res) {
 
     try {
         // verificação pela session se o cara ta online ainda
-        // const user = await db.collection('sessions').findOne({token})
-
-        // if(!user){
-        //     return res.status(404).send('O usuário não está mais logado');
-        // }
+        const user = await db.collection('sessions').findOne({token})
+        console.log(user)
+        if(!user){
+            return res.status(404).send('O usuário não está mais logado');
+        }
         // ----------------------------------------------------------------
 
-        const portifolio = await db.collection('cart').find().toArray();
+        const cart = await db.collection('cart').find({userId: user.userId}).toArray();
 
-        res.status(200).send(portifolio)
+        res.status(200).send(cart)
     } catch (error) {
         console.error(error);
         res.sendStatus(500)
@@ -63,30 +63,34 @@ async function getCart(req, res) {
 }
 
 // insert
-async function insertCart(req, res) {
-    const token = req.headers.aythorization?.replace('Bearer ', '');
-
+async function insertProduct(req, res) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    const product = req.body;
 
     try {
-        // verificação pela session se o cara ta online ainda
-        // const user = await db.collection('sessions').findOne({token})
 
-        // if(!user){
-        //     return res.status(404).send('O usuário não está mais logado');
-        // }
+        // MIDDLEWARE verificação pela session se o cara ta online ainda
+        const user = await db.collection('sessions').findOne({ token })
+
+        if (!user) {
+            return res.status(404).send('O usuário não está mais logado');
+        }
         // ----------------------------------------------------------------
+        await db.collection('cart').insertOne({
+            ...product,
+            userId: user.userId
+        })
 
-
+        return res.sendStatus(200)
 
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         res.sendStatus(500)
     }
 
-
 }
 
-async function insertHeaderCart(req, res) {
+async function deleteProduct(req, res) {
     const token = req.headers.aythorization?.replace('Bearer ', '');
 
 
@@ -112,6 +116,6 @@ async function insertHeaderCart(req, res) {
 export {
     getPortifolio,
     getCart,
-    insertCart,
-    insertHeaderCart,
+    insertProduct,
+    deleteProduct,
 }
