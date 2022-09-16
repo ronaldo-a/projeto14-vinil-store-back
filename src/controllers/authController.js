@@ -94,7 +94,7 @@ async function signIn (req, res) {
 }
 
 async function signOut (req, res){
-    const token = req.headers.authorization?.replace('Bearer ', '')
+    const token = req.headers.authorization?.replace('Bearer ', '');
 
     try {
         // verificação pela session se o cara ta online ainda
@@ -113,8 +113,27 @@ async function signOut (req, res){
     }
 }
 
+async function verifySession (req, res) {
+    const token = req.headers.authorization?.replace('Bearer ', '');
+
+    try {
+        // verificação pela session se o cara ta online ainda
+        const user = await db.collection('sessions').findOne({token})
+
+        if(!user){
+            return res.status(404).send('Usuário não encontrado');
+        }
+
+        res.status(200).send(user.username);
+    } catch (error) {
+        console.error(error);
+        res.sendStatus(500);
+    }
+}
+
 export{
     signUp,
     signIn,
     signOut,
+    verifySession
 }

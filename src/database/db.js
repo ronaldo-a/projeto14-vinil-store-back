@@ -77,15 +77,15 @@ try {
 
 const db = mongoClient.db('vinil-store-1');
 
-// try {
-//     for (let k = 0; k < array.length; k++) {
-//         console.log('cadastrinho firmeza')
-//         await db.collection('portifolio').insertOne(array[k])
-//     }
+ /* try {
+     for (let k = 0; k < array.length; k++) {
+         console.log('cadastrinho firmeza')
+         await db.collection('portifolio').insertOne(array[k])
+     }
 
-// } catch (error) {
-//     console.error(error)
-// }
+ } catch (error) {
+     console.error(error)
+ } */
 
 export { db }
 
