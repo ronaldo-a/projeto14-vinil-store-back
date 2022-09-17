@@ -39,7 +39,7 @@ async function getPortifolio(req, res) {
 
 async function getCart(req, res) {
 
-    token = res.locals.token;
+    const token = res.locals.token;
 
     try {
         
@@ -56,7 +56,7 @@ async function getCart(req, res) {
 // insert
 async function insertProduct(req, res) {
     
-    token = res.locals.token;
+    const token = res.locals.token;
     const product = req.body;
 
     try {

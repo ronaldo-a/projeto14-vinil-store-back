@@ -13,19 +13,20 @@ const signInSchema = joi.object({
 
 async function validateNewUser (req, res, next) {
 
-    const validation = signUpSchema(req.body);
+    const validation = signUpSchema.validate(req.body);
 
     if (validation.error) {
         const errors = validation.error.details.map(value => value.message);
         return res.status(422).send(errors);
     }
 
+    res.locals.user = req.body;
     next();
 }
 
 async function validateLogin (req, res, next) {
-    user = req.body;
-    const validation = signInSchema(user);
+    const user = req.body;
+    const validation = signInSchema.validate(user);
 
     if (validation.error) {
         const errors = validation.error.details.map(value => value.message);
