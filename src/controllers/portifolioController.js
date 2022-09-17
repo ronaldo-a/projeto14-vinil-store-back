@@ -12,8 +12,6 @@ async function getPortifolio(req, res) {
     // lembrar de maiúsculo e minúsculo
     // Verificação do query
     if (style) {
-
-
         try {
             const portifolio = await db.collection('portifolio').find({ style: style }).toArray()
             return res.status(200).send(portifolio)
@@ -29,7 +27,7 @@ async function getPortifolio(req, res) {
         // MIDDLEWARE verificação pela session se o cara ta online ainda
         const user = await db.collection('sessions').findOne({ token })
         if (!user) {
-            return res.status(404).send('O usuário não está mais logado');
+           res.status(404);
         }
         // ----------------------------------------------------------------
 
