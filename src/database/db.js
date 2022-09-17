@@ -192,7 +192,7 @@ const array = [
 try {
     await mongoClient.connect().then(() => console.log('mongoDb conectado'))
 } catch (error) {
-    console.error(error.response)
+    console.log(error.response);
 }
 
 const db = mongoClient.db('vinil-store-4');

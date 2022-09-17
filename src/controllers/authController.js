@@ -5,38 +5,12 @@ import { db } from "../database/db.js";
 import { stripHtml } from 'string-strip-html';
 
 
-// Joi Objects-----------------------------------------
-const signUpSchema = joi.object({
-    username: joi.string().required().min(1),
-    email: joi.string().email().required().min(1),
-    password: joi.string().required().min(6)
-})
-
-const signInSchema = joi.object({
-    email: joi.string().email().required().min(1),
-    password: joi.string().required().min(6),
-})
-
 async function signUp(req, res) {
-    const { username, email, password } = req.body;
+    const { username, email, password } = res.locals.user;
 
     const hashPassword = bcrypt.hashSync(password, 10);
 
-    // validação com joi
-    const validation = signUpSchema.validate(req.body)
-
-    if (validation.error) {
-        const errors = validation.error.details.map(value => value.message)
-        res.status(422).send(errors)
-        return;
-    }
-    // ----------------------------------------------------------
-
     try {
-        // -------------------------------------------
-        //              MIDDLEWARE
-        // --------------------------------------------
-
         await db.collection('users').insertOne({
             username: stripHtml(username).result.trim(),
             email: stripHtml(email).result.trim(),
@@ -51,16 +25,8 @@ async function signUp(req, res) {
 }
 
 async function signIn (req, res) {
-    const { email, password } = req.body;
-    // validação com joi
-    const validation = signInSchema.validate(req.body)
 
-    if (validation.error) {
-        const errors = validation.error.details.map(value => value.message)
-        res.status(422).send(errors)
-        return;
-    }
-    // -----------------------------------------------
+    const { email, password } = res.locals.user;
 
     try {
         const token = uuidv4();
@@ -71,7 +37,6 @@ async function signIn (req, res) {
         // if user exist e bcrypt.compare conferir a senha como verdade
         if (user && bcrypt.compareSync(password, user.password)) {
             
-
             await db.collection('sessions').insertOne({
                 token,
                 userId: user._id,
@@ -93,18 +58,14 @@ async function signIn (req, res) {
 }
 
 async function signOut (req, res){
-    const token = req.headers.authorization?.replace('Bearer ', '')
-    try {
-        // verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({token})
 
-        if(!user){
-            return res.status(404).send('O usuário não está mais logado');
-        }
+    token = res.locals.token;
+
+    try {
 
         await db.collection('sessions').deleteOne({token})
-
         res.sendStatus(200)
+
     } catch (error) {
         console.error(error);
         res.sendStatus(500);

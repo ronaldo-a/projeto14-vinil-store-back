@@ -1,11 +1,13 @@
 import express from 'express';
 import * as authController from '../controllers/authController.js'
+import { validateSession } from '../middlewares/sessionMiddleware.js';
+import { validateNewUser, validateLogin } from '../middlewares/userMiddleware.js';
 
 const router = express.Router();
 
-router.post('/signin', authController.signIn)
-router.post('/signup', authController.signUp)
-router.delete('/signout', authController.signOut)
-router.get('/verifysession', authController.verifySession)
+router.post('/signin', validateLogin, authController.signIn)
+router.post('/signup', validateNewUser, authController.signUp)
+router.delete('/signout', validateSession, authController.signOut)
+//router.get('/verifysession', authController.verifySession)
 
 export default router;
