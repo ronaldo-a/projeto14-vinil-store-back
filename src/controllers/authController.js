@@ -1,4 +1,3 @@
-import joi from "joi";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from 'uuid';
 import { db } from "../database/db.js";
@@ -59,7 +58,7 @@ async function signIn (req, res) {
 
 async function signOut (req, res){
 
-    token = res.locals.token;
+    const token = res.locals.token;
 
     try {
 
