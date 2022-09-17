@@ -81,8 +81,10 @@ async function insertProduct(req, res) {
 // delete
 
 async function deleteProduct(req, res) {
-    //token = res.local.token;
+    
+    console.log("entreiii")
     const { id } = req.params
+    console.log(id);
 
     try {
 
