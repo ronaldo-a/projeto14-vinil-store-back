@@ -187,7 +187,6 @@ const array = [
         qtd: 1,
     },
 ];
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 try {
     await mongoClient.connect().then(() => console.log('mongoDb conectado'))
