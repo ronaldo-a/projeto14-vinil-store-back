@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import { db } from "../database/db.js";
 
 //  get
@@ -43,18 +44,18 @@ async function getCart(req, res) {
 
     try {
         // verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({token})
+        const user = await db.collection('sessions').findOne({ token })
         console.log(user)
-        if(!user){
+        if (!user) {
             return res.status(404).send('O usuário não está mais logado');
         }
         // ----------------------------------------------------------------
 
-        const cart = await db.collection('cart').find({userId: user.userId}).toArray();
+        const cart = await db.collection('cart').find({ userId: user.userId }).toArray();
 
         res.status(200).send(cart)
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         res.sendStatus(500)
     }
 }
@@ -89,23 +90,28 @@ async function insertProduct(req, res) {
 
 }
 
+// delete
+
 async function deleteProduct(req, res) {
-    const token = req.headers.aythorization?.replace('Bearer ', '');
+    const token = req.headers.authorization?.replace('Bearer ', '');
+    const { id } = req.params
 
 
     try {
         // verificação pela session se o cara ta online ainda
-        // const user = await db.collection('sessions').findOne({token})
+        const user = await db.collection('sessions').findOne({ token })
 
-        // if(!user){
-        //     return res.status(404).send('O usuário não está mais logado');
-        // }
+        if (!user) {
+            return res.status(404).send('O usuário não está mais logado');
+        }
         // ----------------------------------------------------------------
 
+        await db.collection('cart').deleteOne({ _id: id })
 
+        res.status(200).send(prod)
 
     } catch (error) {
-        console.error(error);
+        console.error(error.message);
         res.sendStatus(500)
     }
 
