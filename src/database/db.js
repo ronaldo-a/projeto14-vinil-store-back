@@ -195,7 +195,7 @@ try {
     console.error(error.response)
 }
 
-const db = mongoClient.db('vinil-store-3');
+const db = mongoClient.db('vinil-store-4');
 
  /* try {
      for (let k = 0; k < array.length; k++) {
@@ -205,7 +205,7 @@ const db = mongoClient.db('vinil-store-3');
 
  } catch (error) {
      console.error(error)
- } */
+ }; */
 
 export { db }
 

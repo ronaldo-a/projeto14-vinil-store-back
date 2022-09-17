@@ -1,6 +1,5 @@
 import { db } from "../database/db.js";
 
-
 //  get
 async function getPortifolio(req, res) {
     const token = req.headers.authorization?.replace('Bearer ', '')
@@ -11,8 +10,6 @@ async function getPortifolio(req, res) {
     // lembrar de maiúsculo e minúsculo
     // Verificação do query
     if (style) {
-
-
         try {
             const portifolio = await db.collection('portifolio').find({ style: style }).toArray()
             return res.status(200).send(portifolio)
@@ -78,9 +75,11 @@ async function insertProduct(req, res) {
         // ----------------------------------------------------------------
         await db.collection('cart').insertOne({
             ...product,
-            userId: user.userId
+            userId: user.userId,
+            qtd: 1
         })
-
+        
+        console.log("FOI")
         return res.sendStatus(200)
 
     } catch (error) {
@@ -113,9 +112,26 @@ async function deleteProduct(req, res) {
 
 }
 
+async function changeQtd(req, res) {
+    //const token = req.headers.authorization.replace("Bearer ", "");
+    try {
+        const {productId, newQtd} = req.body;
+        console.log(req.body)
+        const carts = db.collection("cart");
+        await carts.updateOne({"_id": productId}, {$set:{qtd: newQtd}});
+
+        console.log("qtd novo1");
+        return res.status(200).send("Quantidade alterada")
+    } catch (error) {
+        return res.status(500).send("Quantidade não alterada")
+    }
+    
+}
+
 export {
     getPortifolio,
     getCart,
     insertProduct,
     deleteProduct,
+    changeQtd
 }

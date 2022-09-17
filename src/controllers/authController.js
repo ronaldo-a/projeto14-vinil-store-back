@@ -52,7 +52,6 @@ async function signUp(req, res) {
 
 async function signIn (req, res) {
     const { email, password } = req.body;
-
     // validação com joi
     const validation = signInSchema.validate(req.body)
 
@@ -88,7 +87,7 @@ async function signIn (req, res) {
         });
 
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.sendStatus(500);
     }
 }
@@ -119,13 +118,16 @@ async function verifySession (req, res) {
         // verificação pela session se o cara ta online ainda
         const session = await db.collection('sessions').findOne({token})
 
-        if(!user){
+        if(!session){
             return res.status(404).send('Usuário não encontrado');
         }
 
-        res.status(200).send(session);
+        const userId = session.userId;
+        const user = await db.collection('users').findOne({_id: userId});
+
+        return res.status(200).send(user);
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.sendStatus(500);
     }
 }
