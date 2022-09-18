@@ -1,13 +1,10 @@
 import { ObjectId } from "mongodb";
 import { db } from "../database/db.js";
 
-
 //  get
 async function getPortifolio(req, res) {
-    const token = req.headers.authorization?.replace('Bearer ', '')
+    //const token = req.headers.authorization?.replace('Bearer ', '')
     const { style } = req.query
-
-
 
     // lembrar de maiúsculo e minúsculo
     // Verificação do query
@@ -25,10 +22,10 @@ async function getPortifolio(req, res) {
 
     try {
         // MIDDLEWARE verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({ token })
+        /* const user = await db.collection('sessions').findOne({ token })
         if (!user) {
-           res.status(404);
-        }
+            return res.status(404).send('O usuário não está mais logado');
+        } */
         // ----------------------------------------------------------------
 
         const portifolio = await db.collection('portifolio').find().toArray();
@@ -41,20 +38,15 @@ async function getPortifolio(req, res) {
 }
 
 async function getCart(req, res) {
-    const token = req.headers.authorization?.replace('Bearer ', '')
+
+    const token = res.locals.token;
 
     try {
-        // verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({ token })
-        console.log(user)
-        if (!user) {
-            return res.status(404).send('O usuário não está mais logado');
-        }
-        // ----------------------------------------------------------------
 
+        const user = await db.collection('sessions').findOne({ token });
         const cart = await db.collection('cart').find({ userId: user.userId }).toArray();
+        res.status(200).send(cart);
 
-        res.status(200).send(cart)
     } catch (error) {
         console.error(error.message);
         res.sendStatus(500)
@@ -63,21 +55,18 @@ async function getCart(req, res) {
 
 // insert
 async function insertProduct(req, res) {
-    const token = req.headers.authorization?.replace('Bearer ', '');
+
+    const token = res.locals.token;
     const product = req.body;
 
     try {
 
-        // MIDDLEWARE verificação pela session se o cara ta online ainda
         const user = await db.collection('sessions').findOne({ token })
 
-        if (!user) {
-            return res.status(404).send('O usuário não está mais logado');
-        }
-        // ----------------------------------------------------------------
         await db.collection('cart').insertOne({
             ...product,
-            userId: user.userId
+            userId: user.userId,
+            qtd: 1
         })
 
         return res.sendStatus(200)
@@ -92,28 +81,33 @@ async function insertProduct(req, res) {
 // delete
 
 async function deleteProduct(req, res) {
-    const token = req.headers.authorization?.replace('Bearer ', '');
+    //token = res.local.token;
     const { id } = req.params
 
-
     try {
-        // verificação pela session se o cara ta online ainda
-        const user = await db.collection('sessions').findOne({ token })
 
-        if (!user) {
-            return res.status(404).send('O usuário não está mais logado');
-        }
-        // ----------------------------------------------------------------
-
-        await db.collection('cart').deleteOne({ _id: id })
-
-        res.status(200).send(prod)
+        await db.collection('cart').deleteOne({ _id: id });
+        res.status(200).send("Item excluído com sucesso!");
 
     } catch (error) {
         console.error(error.message);
         res.sendStatus(500)
     }
 
+}
+
+async function changeQtd(req, res) {
+
+    try {
+        const { productId, newQtd } = req.body;
+        // console.log(req.body);
+        const carts = db.collection("cart");
+        await carts.updateOne({ "_id": productId }, { $set: { qtd: newQtd } });
+
+        return res.status(200).send("Quantidade alterada");
+    } catch (error) {
+        return res.status(500).send("Quantidade não alterada");
+    }
 
 }
 
@@ -122,4 +116,5 @@ export {
     getCart,
     insertProduct,
     deleteProduct,
+    changeQtd
 }

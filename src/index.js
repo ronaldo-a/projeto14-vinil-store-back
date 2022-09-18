@@ -18,4 +18,4 @@ app.use(authRouter)
 // portifolio routes
 app.use(portifolioRouter)
 
-app.listen(process.env.PORT_API, () => console.log(`Server is listening on ${process.env.PORT_API}`));
+app.listen(process.env.PORT, () => console.log(`Server is listening on ${process.env.PORT}`));

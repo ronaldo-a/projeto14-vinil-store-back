@@ -187,25 +187,24 @@ const array = [
         qtd: 1,
     },
 ];
-// XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 try {
     await mongoClient.connect().then(() => console.log('mongoDb conectado'))
 } catch (error) {
-    console.error(error.response)
+    console.log(error.response);
 }
 
-const db = mongoClient.db('vinil-store-01');
+const db = mongoClient.db('vinil-store-4');
 
-// try {
-//     for (let k = 0; k < array.length; k++) {
-//         console.log('cadastrinho firmeza')
-//         await db.collection('portifolio').insertOne(array[k])
-//     }
+/*  try {
+     for (let k = 0; k < array.length; k++) {
+         console.log('cadastrinho firmeza')
+         await db.collection('portifolio').insertOne(array[k])
+     }
 
-// } catch (error) {
-//     console.error(error)
-// }
+ } catch (error) {
+     console.error(error)
+ }; */
 
 export { db }
 
