@@ -57,14 +57,16 @@ async function getCart(req, res) {
 async function insertProduct(req, res) {
 
     const token = res.locals.token;
-    const {_id, name, img, price, artist, qtd} = req.body;
+    const { _id, name, img, price, artist, qtd } = req.body;
 
     try {
 
         const user = await db.collection('sessions').findOne({ token });
-        const cart = await db.collection('cart').find({userId: user.userId}).toArray();
+        const cart = await db.collection('cart').find({ userId: user.userId }).toArray();
+
         const isItem = cart.filter(item => item.productId === _id);
-        if (isItem) {
+        
+        if (isItem.length !== 0 ) {
             return res.status(409).send("Item já adicionado ao carrinho!");
         }
 
@@ -91,14 +93,11 @@ async function insertProduct(req, res) {
 // delete
 
 async function deleteProduct(req, res) {
-    
-    console.log("entreiii")
     const { id } = req.params
-    console.log(id);
 
     try {
 
-        await db.collection('cart').deleteOne({ _id: id });
+        await db.collection('cart').deleteOne({ _id: new ObjectId(id) });
         res.status(200).send("Item excluído com sucesso!");
 
     } catch (error) {
