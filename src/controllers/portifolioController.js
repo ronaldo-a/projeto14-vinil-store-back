@@ -132,11 +132,14 @@ async function insertSale (req, res) {
         const user =  await db.collection('sessions').findOne({ token });
         const unserializedCart = await db.collection('cart').find({userId: user.userId}).toArray();
         const cart = JSON.stringify(unserializedCart)
-        const sale = await db.collection('sales').insertOne({
+        await db.collection('sales').insertOne({
             userId: user.userId,
             cart,
             total
         });
+        //const sale = await db.collection('sales').findOne({userId: user.userId});
+        const sale = await db.collection('sales').findOne({userId: user.userId}).sort({_id:-1}).limit(1);
+        console.log(sale)
         await db.collection('cart').deleteOne({userId: user.userId});
 
         return res.status(200).send(sale);
@@ -160,6 +163,5 @@ export {
     insertProduct,
     deleteProduct,
     changeQtd,
-    insertSale,
-    
+    insertSale
 }
