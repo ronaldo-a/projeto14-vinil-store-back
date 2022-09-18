@@ -42,7 +42,7 @@ async function getCart(req, res) {
     const token = res.locals.token;
 
     try {
-        
+
         const user = await db.collection('sessions').findOne({ token });
         const cart = await db.collection('cart').find({ userId: user.userId }).toArray();
         res.status(200).send(cart);
@@ -55,7 +55,7 @@ async function getCart(req, res) {
 
 // insert
 async function insertProduct(req, res) {
-    
+
     const token = res.locals.token;
     const {_id, name, img, price, artist, qtd} = req.body;
 
@@ -78,7 +78,7 @@ async function insertProduct(req, res) {
             userId: user.userId,
             qtd: 1
         })
-        
+
         return res.sendStatus(200)
 
     } catch (error) {
@@ -111,16 +111,16 @@ async function deleteProduct(req, res) {
 async function changeQtd(req, res) {
 
     try {
-        const {productId, newQtd} = req.body;
-        console.log(req.body);
+        const { productId, newQtd } = req.body;
+        // console.log(req.body);
         const carts = db.collection("cart");
-        await carts.updateOne({"_id": productId}, {$set:{qtd: newQtd}});
+        await carts.updateOne({ "_id": productId }, { $set: { qtd: newQtd } });
 
         return res.status(200).send("Quantidade alterada");
     } catch (error) {
         return res.status(500).send("Quantidade não alterada");
     }
-    
+
 }
 
 export {

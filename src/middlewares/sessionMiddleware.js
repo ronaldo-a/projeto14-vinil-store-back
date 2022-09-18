@@ -1,7 +1,6 @@
 import { db } from "../database/db.js";
 
 async function validateSession (req, res, next) {
-    
     const token = req.headers.authorization?.replace('Bearer ', '');
 
     const user = await db.collection('sessions').findOne({token})
