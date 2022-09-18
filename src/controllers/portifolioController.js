@@ -57,14 +57,24 @@ async function getCart(req, res) {
 async function insertProduct(req, res) {
 
     const token = res.locals.token;
-    const product = req.body;
+    const {_id, name, img, price, artist, qtd} = req.body;
 
     try {
 
-        const user = await db.collection('sessions').findOne({ token })
+        const user = await db.collection('sessions').findOne({ token });
+        const cart = await db.collection('cart').find({userId: user.userId}).toArray();
+        const isItem = cart.filter(item => item.productId === _id);
+        if (isItem) {
+            return res.status(409).send("Item já adicionado ao carrinho!");
+        }
 
         await db.collection('cart').insertOne({
-            ...product,
+            productId: _id,
+            name,
+            img,
+            price,
+            artist,
+            qtd,
             userId: user.userId,
             qtd: 1
         })
@@ -81,8 +91,10 @@ async function insertProduct(req, res) {
 // delete
 
 async function deleteProduct(req, res) {
-    //token = res.local.token;
+    
+    console.log("entreiii")
     const { id } = req.params
+    console.log(id);
 
     try {
 
