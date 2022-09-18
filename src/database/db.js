@@ -13,6 +13,7 @@ const array = [
         artist: 'Alcione',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
 
     }, {
         name: ' Elis & Tom',
@@ -21,6 +22,7 @@ const array = [
         artist: 'Elis Regina e Tom Jobim',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
     }, {
         name: 'Toquinho',
         img: 'https://m.media-amazon.com/images/I/817HTXclWAL._AC_SL1500_.jpg',
@@ -28,6 +30,7 @@ const array = [
         artist: 'Toquinho',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
     }, {
         name: 'Samba esquema novo',
         img: 'https://imusic.b-cdn.net/images/item/original/875/7427251606875.jpg?jorge-ben-2022-Samba-esquema-novo-coloured-vinyl-lp&class=original',
@@ -35,6 +38,7 @@ const array = [
         artist: 'Jorgen Ben',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
     }, {
         name: 'Estudando o Samba ',
         img: 'https://m.media-amazon.com/images/I/71h2lkMVDaL._AC_SL1500_.jpg',
@@ -42,6 +46,7 @@ const array = [
         artist: 'Tom Zé',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
     }, {
         name: 'Cartola -1976 -Série Clássicos',
         img: 'https://m.media-amazon.com/images/I/71U7Zyq15bL._AC_SL1500_.jpg',
@@ -50,6 +55,7 @@ const array = [
         style: 'Samba',
         qtd: 1,
 
+        clicked:false,
     }, {
         name: 'Samba pras moças',
         img: 'https://m.media-amazon.com/images/I/71L6ZGLcYmS._AC_SL1000_.jpg',
@@ -57,7 +63,7 @@ const array = [
         artist: 'Zeca Pagodinho',
         style: 'Samba',
         qtd: 1,
-
+        clicked:false,
     }, {
         name: 'Só danço Samba',
         img: 'https://m.media-amazon.com/images/I/51QTGySfzML._UX358_FMwebp_QL85_.jpg',
@@ -65,6 +71,7 @@ const array = [
         artist: 'Emilio Santiago',
         style: 'Samba',
         qtd: 1,
+        clicked:false,
     },
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -76,6 +83,7 @@ const array = [
         artist: 'Pink Floyd',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Nevermind ',
         img: 'https://imusic.b-cdn.net/images/item/original/517/0720642442517.jpg?nirvana-2014-nevermind-lp&class=original',
@@ -83,6 +91,7 @@ const array = [
         artist: 'Nirvana',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Led Zeppelin 2014',
         img: 'https://imusic.b-cdn.net/images/item/original/416/0081227966416.jpg?led-zeppelin-2014-led-zeppelin-lp&class=original',
@@ -90,6 +99,7 @@ const array = [
         artist: 'Led Zeppelin ',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Queen II ',
         img: 'https://imusic.b-cdn.net/images/item/original/240/0602547288240.jpg?queen-2015-queen-ii-lp&class=original',
@@ -97,6 +107,7 @@ const array = [
         artist: 'Queen',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: '50 Greatest Hits',
         img: 'https://imusic.b-cdn.net/images/item/original/016/0886976399016.jpg?elvis-presley-2010-50-greatest-hits-lp&class=scaled',
@@ -104,6 +115,7 @@ const array = [
         artist: 'Elvis Presley',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Use Your Illusion 1',
         img: 'https://imusic.b-cdn.net/images/item/original/510/0720642441510.jpg?guns-n-roses-2012-use-your-illusion-1-lp&class=scaled',
@@ -111,6 +123,7 @@ const array = [
         artist: `Guns 'n' Roses`,
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Rock and Roll over ',
         img: 'https://imusic.b-cdn.net/images/item/original/248/0602537788248.jpg?kiss-2016-rock-and-roll-over-lp&class=original',
@@ -118,6 +131,7 @@ const array = [
         artist: 'KISS',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Back in Black',
         img: 'https://imusic.b-cdn.net/images/item/original/513/5099751076513.jpg?ac-dc-2009-back-in-black-lp&class=original',
@@ -125,6 +139,7 @@ const array = [
         artist: 'ACDC',
         style: 'Rock',
         qtd: 1,
+        clicked:false,
     },
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -136,6 +151,7 @@ const array = [
         artist: 'Mestrinho',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Coletânea RootStock 2019',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2020/03/Rootstock-2020-Capa-Coletanea-620x620.png',
@@ -143,6 +159,7 @@ const array = [
         artist: 'Variados',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Parafina',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2020/09/cover-620x620.jpg',
@@ -150,6 +167,7 @@ const array = [
         artist: 'Edson Duarte',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Sivuca 1957',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2020/01/1957-SIVUCA-Compacto-Simples-selo-A-copacabana.jpg',
@@ -157,6 +175,7 @@ const array = [
         artist: 'Sivuca',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Mestre Zinho ao vivo',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2015/12/capa5.jpg',
@@ -164,6 +183,7 @@ const array = [
         artist: 'Mestre Zinho',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: `Marinês - Compacto duplo - Oito da Conceição` ,
         img: 'http://www.forroemvinil.com/wp-content/uploads/2015/04/capa17.jpg',
@@ -171,6 +191,7 @@ const array = [
         artist: 'Marinês',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Luiz Gonzaga - Forró do começo ao fim ',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2019/08/Capa-Luiz-Gozaga-Forr%C3%B3-Do-Come%C3%A7o-Ao-Fim-1991-449x304.jpg',
@@ -178,6 +199,7 @@ const array = [
         artist: 'Luiz Gonzaga',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },{
         name: 'Dominguinhos - Millennium ',
         img: 'http://www.forroemvinil.com/wp-content/uploads/2022/12/CAPA2.jpg',
@@ -185,6 +207,7 @@ const array = [
         artist: 'Dominguinhos',
         style: 'Forró',
         qtd: 1,
+        clicked:false,
     },
 ];
 
@@ -194,17 +217,17 @@ try {
     console.log(error.response);
 }
 
-const db = mongoClient.db('vinil-store-4');
+const db = mongoClient.db('vinil-store-5');
 
-/*  try {
-     for (let k = 0; k < array.length; k++) {
-         console.log('cadastrinho firmeza')
-         await db.collection('portifolio').insertOne(array[k])
-     }
+//  try {
+//      for (let k = 0; k < array.length; k++) {
+//          console.log('cadastrinho firmeza')
+//          await db.collection('portifolio').insertOne(array[k])
+//      }
 
- } catch (error) {
-     console.error(error)
- }; */
+//  } catch (error) {
+//      console.error(error)
+//  };
 
 export { db }
 
