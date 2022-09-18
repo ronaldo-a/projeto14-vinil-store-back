@@ -64,7 +64,7 @@ async function insertProduct(req, res) {
         const user = await db.collection('sessions').findOne({ token });
         const cart = await db.collection('cart').find({userId: user.userId}).toArray();
         const isItem = cart.filter(item => item.productId === _id);
-        if (isItem) {
+        if (isItem.length !== 0) {
             return res.status(409).send("Item já adicionado ao carrinho!");
         }
 
@@ -98,7 +98,7 @@ async function deleteProduct(req, res) {
 
     try {
 
-        await db.collection('cart').deleteOne({ _id: id });
+        await db.collection('cart').deleteOne({ _id: ObjectId(id) });
         res.status(200).send("Item excluído com sucesso!");
 
     } catch (error) {
@@ -123,10 +123,43 @@ async function changeQtd(req, res) {
 
 }
 
+async function insertSale (req, res) {
+
+    const {total} = req.body;
+    const token = res.locals.token;
+
+    try {
+        const user =  await db.collection('sessions').findOne({ token });
+        const unserializedCart = await db.collection('cart').find({userId: user.userId}).toArray();
+        const cart = JSON.stringify(unserializedCart)
+        const sale = await db.collection('sales').insertOne({
+            userId: user.userId,
+            cart,
+            total
+        });
+        await db.collection('cart').deleteOne({userId: user.userId});
+
+        return res.status(200).send(sale);
+    } catch (error) {
+        return res.status(500).send("Compra não concluída");
+    }
+    
+}
+
+async function getSale (req, res) {
+    const token = res.locals.token;
+
+    const user =  await db.collection('users').findOne({ token });
+    const sales = await db.collection("sales").find({userId: user.userId}).toArray();
+    
+}
+
 export {
     getPortifolio,
     getCart,
     insertProduct,
     deleteProduct,
-    changeQtd
+    changeQtd,
+    insertSale,
+    
 }
