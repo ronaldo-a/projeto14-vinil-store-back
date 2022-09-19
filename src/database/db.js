@@ -9,7 +9,7 @@ const array = [
     {
         name: 'Alerta geral',
         img: 'https://s3.amazonaws.com/vinils3/wp-content/uploads/2016/10/Alcione_alerta-geral_01-300x300.jpg',
-        price: '150,00',
+        price: '109,50',
         artist: 'Alcione',
         style: 'Samba',
         qtd: 1,
@@ -18,7 +18,7 @@ const array = [
     }, {
         name: ' Elis & Tom',
         img: 'https://imusic.b-cdn.net/images/item/original/829/0042282441829.jpg?regina-elis-antonio-ca-2008-elis-tom-cd&class=original',
-        price: '150,00',
+        price: '145,90',
         artist: 'Elis Regina e Tom Jobim',
         style: 'Samba',
         qtd: 1,
@@ -26,7 +26,7 @@ const array = [
     }, {
         name: 'Toquinho',
         img: 'https://m.media-amazon.com/images/I/817HTXclWAL._AC_SL1500_.jpg',
-        price: '150,00',
+        price: '89,90',
         artist: 'Toquinho',
         style: 'Samba',
         qtd: 1,
@@ -34,7 +34,7 @@ const array = [
     }, {
         name: 'Samba esquema novo',
         img: 'https://imusic.b-cdn.net/images/item/original/875/7427251606875.jpg?jorge-ben-2022-Samba-esquema-novo-coloured-vinyl-lp&class=original',
-        price: '150,00',
+        price: '60,00',
         artist: 'Jorgen Ben',
         style: 'Samba',
         qtd: 1,
@@ -42,7 +42,7 @@ const array = [
     }, {
         name: 'Estudando o Samba ',
         img: 'https://m.media-amazon.com/images/I/71h2lkMVDaL._AC_SL1500_.jpg',
-        price: '150,00',
+        price: '76,90',
         artist: 'Tom Zé',
         style: 'Samba',
         qtd: 1,
@@ -50,7 +50,7 @@ const array = [
     }, {
         name: 'Cartola -1976 -Série Clássicos',
         img: 'https://m.media-amazon.com/images/I/71U7Zyq15bL._AC_SL1500_.jpg',
-        price: '150,00',
+        price: '185,90',
         artist: 'Cartola',
         style: 'Samba',
         qtd: 1,
@@ -59,7 +59,7 @@ const array = [
     }, {
         name: 'Samba pras moças',
         img: 'https://m.media-amazon.com/images/I/71L6ZGLcYmS._AC_SL1000_.jpg',
-        price: '158,00',
+        price: '99,90',
         artist: 'Zeca Pagodinho',
         style: 'Samba',
         qtd: 1,
@@ -67,7 +67,7 @@ const array = [
     }, {
         name: 'Só danço Samba',
         img: 'https://m.media-amazon.com/images/I/51QTGySfzML._UX358_FMwebp_QL85_.jpg',
-        price: '150,00',
+        price: '120,00',
         artist: 'Emilio Santiago',
         style: 'Samba',
         qtd: 1,
@@ -217,17 +217,19 @@ try {
     console.log(error.response);
 }
 
-const db = mongoClient.db('vinil-store-5');
+const db = mongoClient.db('vinil-store-01');
 
- /* try {
-      for (let k = 0; k < array.length; k++) {
-          console.log('cadastrinho firmeza')
-          await db.collection('portifolio').insertOne(array[k])
-      }
 
-  } catch (error) {
-      console.error(error)
-  }; */
+// add dataBase
+//  try {
+//       for (let k = 0; k < array.length; k++) {
+//           console.log('cadastrinho firmeza')
+//           await db.collection('portifolio').insertOne(array[k])
+//       }
+
+//   } catch (error) {
+//       console.error(error)
+//   };
 
 export { db }
 

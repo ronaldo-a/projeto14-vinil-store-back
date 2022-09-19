@@ -21,13 +21,6 @@ async function getPortifolio(req, res) {
     // ----------------------------------------------------------------
 
     try {
-        // MIDDLEWARE verificação pela session se o cara ta online ainda
-        /* const user = await db.collection('sessions').findOne({ token })
-        if (!user) {
-            return res.status(404).send('O usuário não está mais logado');
-        } */
-        // ----------------------------------------------------------------
-
         const portifolio = await db.collection('portifolio').find().toArray();
 
         res.status(200).send(portifolio)
@@ -44,6 +37,8 @@ async function getCart(req, res) {
     try {
         const user = await db.collection('sessions').findOne({ token });
         const cart = await db.collection('cart').find({ userId: user.userId }).toArray();
+
+
         res.status(200).send(cart);
 
     } catch (error) {
@@ -74,7 +69,7 @@ async function insertProduct(req, res) {
             price,
             artist,
             qtd,
-            clicked,
+            clicked: true,
             userId: user.userId,
         })
 
@@ -91,12 +86,20 @@ async function insertProduct(req, res) {
 
 async function setClicked(req, res) {
 
-    const { clicked, _id } = req.body
+    const { clicked, _id, productId } = req.body
 
     try {
-        await db.collection('portifolio').updateOne({ _id: new ObjectId(_id) }, { $set: { clicked: !clicked } });
 
-        res.send(req.body)
+        if (productId) {
+            await db.collection('portifolio').updateOne({ _id: new ObjectId(productId) }, { $set: { clicked: !clicked } });
+            return res.sendStatus(200);
+            
+        } else {
+            await db.collection('portifolio').updateOne({ _id: new ObjectId(_id) }, { $set: { clicked: !clicked } });
+        }
+
+
+        res.sendStatus(200)
 
     } catch (error) {
         console.error(error.message);
@@ -159,7 +162,7 @@ async function insertSale(req, res) {
             total
         });
 
-        const lastSale = await db.collection('sales').findOne({}, {sort: {_id: -1}, limit: 1 });
+        const lastSale = await db.collection('sales').findOne({}, { sort: { _id: -1 }, limit: 1 });
         await db.collection('cart').deleteOne({ userId: user.userId });
 
         return res.status(200).send(lastSale);
