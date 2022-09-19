@@ -56,7 +56,7 @@ async function getCart(req, res) {
 async function insertProduct(req, res) {
 
     const token = res.locals.token;
-    const { _id, name, img, price, artist, qtd } = req.body;
+    const { _id, name, img, price, artist, qtd, clicked } = req.body;
     try {
 
         const user = await db.collection('sessions').findOne({ token });
@@ -74,8 +74,8 @@ async function insertProduct(req, res) {
             price,
             artist,
             qtd,
+            clicked,
             userId: user.userId,
-            qtd: 1
         })
 
         return res.sendStatus(200)
@@ -153,29 +153,19 @@ async function insertSale(req, res) {
         const user = await db.collection('sessions').findOne({ token });
         const unserializedCart = await db.collection('cart').find({ userId: user.userId }).toArray();
         const cart = JSON.stringify(unserializedCart)
-
-        const sale = await db.collection('sales').insertOne({
+        await db.collection('sales').insertOne({
             userId: user.userId,
             cart,
             total
         });
 
+        const lastSale = await db.collection('sales').findOne({}, {sort: {_id: -1}, limit: 1 });
         await db.collection('cart').deleteOne({ userId: user.userId });
 
-        const sales = await db.collection("sales").find({ userId: user.userId }).toArray();
-
-        return res.status(200).send(sales);
+        return res.status(200).send(lastSale);
     } catch (error) {
         return res.status(500).send("Compra não concluída");
     }
-
-}
-
-async function getSale(req, res) {
-    const token = res.locals.token;
-
-    const user = await db.collection('users').findOne({ token });
-    const sales = await db.collection("sales").find({ userId: user.userId }).toArray();
 
 }
 
@@ -186,6 +176,5 @@ export {
     deleteProduct,
     changeQtd,
     insertSale,
-    setClicked,
-
+    setClicked
 }
