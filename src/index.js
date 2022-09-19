@@ -19,4 +19,4 @@ app.use(authRouter)
 app.use(portifolioRouter)
 
 //app.listen(5000, () => console.log(`Server is listening on 5000`));
-app.listen(process.env.PORT_API, () => console.log(`Server is listening on ${process.env.PORT_API}`));
+app.listen(process.env.PORT, () => console.log(`Server is listening on ${process.env.PORT}`));
